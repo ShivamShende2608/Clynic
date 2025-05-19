@@ -1,3 +1,4 @@
+
 sentence-transformers
 langchain
 flask
@@ -9,3 +10,5 @@ langchain_community
 langchain_openai
 langchain_experimental
 -e .
+gunicorn
+flask 

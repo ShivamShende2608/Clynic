@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <title>Welcome to Clynic</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap 5 -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     body, html {
       height: 100%;
@@ -52,6 +53,7 @@
       transition: all 0.3s ease;
       font-weight: 600;
       box-shadow: 0 5px 20px rgba(13,110,253,0.4);
+      cursor: pointer;
     }
 
     .start-btn:hover {
@@ -69,13 +71,81 @@
         transform: translateY(0);
       }
     }
+
+    /* Loader */
+    #loader-overlay {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(13, 22, 31, 0.95);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #circle {
+      width: 150px;
+      height: 150px;
+    }
+
+    .loader {
+      width: 100%;
+      height: 100%;
+      border: 8px solid #162534;
+      border-top: 8px solid #09f;
+      border-radius: 50%;
+      animation: rotate 1.2s linear infinite;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Loader -->
+  <div id="loader-overlay">
+    <div id="circle">
+      <div class="loader">
+        <div class="loader">
+          <div class="loader">
+            <div class="loader"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
   <div class="main-hero">
     <h1>Welcome to Clynic 💬</h1>
     <p>Your 24x7 AI-powered medical assistant. Get instant help for your health concerns anytime.</p>
-    <a href="/chat" class="start-btn">Open Chatbot</a>
+    <button class="start-btn" onclick="startChat()">Open Chatbot</button>
   </div>
+
+  <script>
+    // Hide loader on normal load + back navigation
+    function hideLoader() {
+      const loader = document.getElementById('loader-overlay');
+      if (loader) loader.style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', hideLoader);
+    window.addEventListener('pageshow', hideLoader); // works on back/forward too
+
+    function startChat() {
+      const loader = document.getElementById('loader-overlay');
+      if (loader) loader.style.display = 'flex';
+
+      setTimeout(() => {
+        window.location.href = '/chat';
+      }, 1000); // adjust delay if needed
+    }
+  </script>
+
 </body>
 </html>
